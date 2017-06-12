@@ -1,5 +1,5 @@
-module("Web Sockets");
+QUnit.module("Web Sockets");
 
-test("check Web Sockets support", function() {
-  ok(WebSocket, "this browser support Web Sockets");
+QUnit.test("check Web Sockets support", function (assert) {
+  assert.ok(WebSocket, "this browser support Web Sockets");
 });

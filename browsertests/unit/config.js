@@ -1,16 +1,14 @@
-$(document).ready(function(){
-  
+$(document).ready(function () {
   TEST = {
-    destination : "/topic/chat.general",
-    login : "admin",
-    password : "password",
-    url : "ws://localhost:61614",
+    destination: "/topic/chat.general",
+    login: "guest",
+    password: "guest",
+    url: "ws://localhost:15674/ws",
     badUrl: "ws://localhost:61625",
     timeout: 2000,
-    debug : function(str) {
+    debug: function (str) {
       $("#debug").append(str + "\n");
     }
-    
   };
 
   // fill server requirements:
@@ -18,5 +16,5 @@ $(document).ready(function(){
   $("#test_destination").text(TEST.destination);
   $("#test_login").text(TEST.login);
   $("#test_password").text(TEST.password);
-  
+
 });

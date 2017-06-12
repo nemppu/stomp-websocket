@@ -1,35 +1,42 @@
-module("Stomp Connection");
+QUnit.module("Stomp Connection");
 
-test("Connect to an invalid Stomp server", function() {
-  
+QUnit.test("Should not connect to an invalid Stomp server", function (assert) {
+  var done = assert.async();
+
   var client = Stomp.client(TEST.badUrl);
-  client.connect("foo", "bar", 
-    function() {},
-    function() {
-      start();
+  client.connect("foo", "bar",
+    function () {
+      assert.ok(false, 'Should not connect to invalid Stomp Server');
+      done();
+    },
+    function () {
+      assert.ok(true, 'Error in connecting to invalid Stomp Server');
+      done();
     });
   stop(TEST.timeout);
 });
 
-test("Connect to a valid Stomp server", function() {
-  
+QUnit.test("Connect to a valid Stomp server", function (assert) {
+  var done = assert.async();
+
   var client = Stomp.client(TEST.url);
-  client.connect(TEST.login, TEST.password, 
-    function() {
-      start();
+  client.connect(TEST.login, TEST.password,
+    function () {
+      assert.ok(true, 'Connected to valid Stomp Server');
+      done();
     });
-  stop(TEST.timeout);
 });
 
-test("Disconnect", function() {
-  
+QUnit.test("Disconnect", function (assert) {
+  var done = assert.async();
+
   var client = Stomp.client(TEST.url);
-  client.connect(TEST.login, TEST.password, 
-    function() {
+  client.connect(TEST.login, TEST.password,
+    function () {
       // once connected, we disconnect
-      client.disconnect(function() {
-        start();
+      client.disconnect(function () {
+        assert.ok(true, 'Disconnected from Stomp Server');
+        done();
       });
     });
-  stop(TEST.timeout);
 });

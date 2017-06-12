@@ -1,42 +1,43 @@
-module("Stomp Message");
+QUnit.module("Stomp Message");
 
-test("Send and receive a message", function() {
+QUnit.test("Send and receive a message", function (assert) {
+  var done = assert.async();
+
   var body = Math.random();
-  
+
   var client = Stomp.client(TEST.url);
   client.debug = TEST.debug;
   client.connect(TEST.login, TEST.password,
-    function() {
-      client.subscribe(TEST.destination, function(message)
-      {
-        start();
-        equals(message.body, body);
+    function () {
+      client.subscribe(TEST.destination, function (message) {
+        assert.equal(message.body, body);
         client.disconnect();
+
+        done();
       });
-      
+
       client.send(TEST.destination, {}, body);
     });
-    stop(TEST.timeout);
 });
 
-test("Send and receive a message with a JSON body", function() {
-  
+QUnit.test("Send and receive a message with a JSON body", function (assert) {
+  var done = assert.async();
+
   var client = Stomp.client(TEST.url);
   var payload = {text: "hello", bool: true, value: Math.random()};
-  
+
   client.connect(TEST.login, TEST.password,
-    function() {
-      client.subscribe(TEST.destination, function(message)
-      {
-        start();
+    function () {
+      client.subscribe(TEST.destination, function (message) {
         var res = JSON.parse(message.body);
-        equals(res.text, payload.text);
-        equals(res.bool, payload.bool);
-        equals(res.value, payload.value);
+        assert.equal(res.text, payload.text);
+        assert.equal(res.bool, payload.bool);
+        assert.equal(res.value, payload.value);
         client.disconnect();
+
+        done();
       });
-      
+
       client.send(TEST.destination, {}, JSON.stringify(payload));
     });
-    stop(TEST.timeout);
 });
