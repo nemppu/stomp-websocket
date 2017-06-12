@@ -15,14 +15,14 @@ task 'watch', 'Watch for changes in coffee files to build and test', ->
 
 task 'test', 'Run the tests', ->
   util.log "Running tests..."
-  exec binDir + "qunit --timeout 10000 -c lib/stomp.js -c tests/config/node-config.js -t tests/unit/*", (err, stdout, stderr) ->
+  # The stdout is much bigger than what Cake is willing to handle, so saving it in a file
+  exec binDir + "qunit --timeout 10000 -c lib/stomp.js -c tests/config/node-config.js -t tests/unit/* > test.log", (err, stdout, stderr) ->
     if err
-      util.log "Tests fail!"
+      util.log "Tests fail, please check test.log"
       handleError(err)
-      # handleError(parseTestResults(stdout), stderr)
     else
       util.log "Tests pass!"
-      # util.log lastLine(stdout)
+      testResultsSummary()
 
 task 'build', 'Build source and tests', ->
   invoke 'build:src'
@@ -56,14 +56,9 @@ watchDir = (dir, callback) ->
               if +curr.mtime isnt +prev.mtime
                   callback "#{dir}/#{file}"
 
-parseTestResults = (data) ->
-  lines = (line for line in data.split('\n') when line.length > 5)
-  results = lines.pop()
-  details = lines[1...lines.length-2].join('\n')
-  results + '\n\n' + details + '\n'
-
-lastLine = (data) ->
-  (line for line in data.split('\n') when line.length > 5).pop()
+testResultsSummary = () ->
+  exec "tail -6 test.log", (err, stdout, stderr) ->
+    util.log stdout
 
 handleError = (error, stderr) -> 
   if stderr? and !error

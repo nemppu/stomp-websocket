@@ -592,3 +592,4 @@ if window?
 # or in the current object (e.g. a WebWorker)
 else if !exports
   self.Stomp = Stomp
+

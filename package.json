@@ -5,7 +5,8 @@
   "description": "STOMP for JavaScript apps (Web browser & node.js)",
   "scripts": {
     "build": "cake build",
-    "test": "coffeelint -f coffeelint.json -r src && cake test"
+    "lint": "coffeelint -f coffeelint.json -r src",
+    "test": "cake test"
   },
   "devDependencies": {
     "coffee-script": "^1.11.0",
