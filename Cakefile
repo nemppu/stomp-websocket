@@ -5,36 +5,29 @@ util   = require 'util'
 binDir = "./node_modules/.bin/"
 
 task 'watch', 'Watch for changes in coffee files to build and test', ->
-    util.log "Watching for changes in src and test"
+    util.log "Watching for changes in src and tests"
     lastTest = 0
     watchDir 'src', ->
-      invoke 'build:src'
-      invoke 'build:min'
-      invoke 'build:doc'
-      invoke 'build:test'
-    watchDir 'test', ->
-      invoke 'build:test'
-    watchDir 'dist/test', (file)->
-      # We only want to run tests once (a second), 
-      # even if a bunch of test files change
-      time = new Date().getTime()
-      if (time-lastTest) > 1000
-        lastTest = time
-        invoke 'test'
+      invoke 'build'
+      invoke 'test'
+    watchDir 'tests', ->
+      invoke 'test'
 
 task 'test', 'Run the tests', ->
   util.log "Running tests..."
-  exec binDir + "jasmine-node --nocolor dist/test", (err, stdout, stderr) -> 
+  exec binDir + "qunit --timeout 10000 -c lib/stomp.js -c tests/config/node-config.js -t tests/unit/*", (err, stdout, stderr) ->
     if err
-      handleError(parseTestResults(stdout), stderr)
+      util.log "Tests fail!"
+      handleError(err)
+      # handleError(parseTestResults(stdout), stderr)
     else
-      displayNotification "Tests pass!"
-      util.log lastLine(stdout)
+      util.log "Tests pass!"
+      # util.log lastLine(stdout)
 
 task 'build', 'Build source and tests', ->
   invoke 'build:src'
   invoke 'build:min'
-  invoke 'build:test'
+  invoke 'build:doc'
 
 task 'build:src', 'Build the src files into lib', ->
   util.log "Compiling src..."
@@ -51,10 +44,9 @@ task 'build:doc', 'Build docco documentation', ->
   exec binDir + "docco -o doc/ src/*.coffee", (err, stdout, stderr) -> 
     handleError(err) if err
 
-task 'build:test', 'Build the test files into lib/test', ->
-  util.log "Compiling test..."
-  exec binDir + "coffee -o dist/test/ -c test/", (err, stdout, stderr) -> 
-    handleError(err) if err
+################################################################################
+# Helper functions
+################################################################################
 
 watchDir = (dir, callback) ->
   fs.readdir dir, (err, files) ->
@@ -76,11 +68,5 @@ lastLine = (data) ->
 handleError = (error, stderr) -> 
   if stderr? and !error
     util.log stderr
-    displayNotification stderr.match(/\n(Error:[^\n]+)/)?[1]
   else
     util.log error
-    displayNotification error
-        
-displayNotification = (message = '') -> 
-  options = { title: 'CoffeeScript' }
-  try require('growl').notify message, options
