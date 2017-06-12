@@ -13,7 +13,6 @@ QUnit.test("Should not connect to an invalid Stomp server", function (assert) {
       assert.ok(true, 'Error in connecting to invalid Stomp Server');
       done();
     });
-  stop(TEST.timeout);
 });
 
 QUnit.test("Connect to a valid Stomp server", function (assert) {
