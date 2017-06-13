@@ -57,8 +57,8 @@ watchDir = (dir, callback) ->
                   callback "#{dir}/#{file}"
 
 testResultsSummary = () ->
-  exec "tail -6 test.log", (err, stdout, stderr) ->
-    util.log stdout
+  lines = (fs.readFileSync "test.log", 'utf8').split("\n")
+  util.log (lines[-7..-2]).join("\n")
 
 handleError = (error, stderr) -> 
   if stderr? and !error
