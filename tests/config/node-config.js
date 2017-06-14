@@ -10,9 +10,8 @@ TEST = {
   }
 };
 
-WebSocket = require('websocket').w3cwebsocket;
-
 Stomp = require('../../lib/stomp').Stomp;
+Stomp.WebSocketClass = require('websocket').w3cwebsocket;
 
 Stomp.setInterval = function(interval, f) {
   return setInterval(f, interval);
