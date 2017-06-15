@@ -20,7 +20,7 @@ wrapTCP = (port, host) ->
 
   # the "Web Socket"-like object expected by stomp.js
   ws = {
-    url: 'tcp:// ' + host + ':' + port
+    url: 'tcp://' + host + ':' + port
     send: (d) -> socket.write(d)
     close: -> socket.end()
   }
@@ -71,14 +71,14 @@ wrapWS = (url) ->
 # This method can be used by node.js app to connect to a STOMP broker over a
 # TCP socket
 overTCP = (host, port) ->
-  socket = wrapTCP port, host
-  Stomp.Stomp.over socket
+  socketFn = -> wrapTCP port, host
+  Stomp.Stomp.over socketFn
 
 # This method can be used by node.js app to connect to a STOMP broker over a
 # Web socket
 overWS = (url) ->
-  socket = wrapWS url
-  Stomp.Stomp.over socket
+  socketFn = -> wrapWS url
+  Stomp.Stomp.over socketFn
 
 exports.overTCP = overTCP
 exports.overWS = overWS
