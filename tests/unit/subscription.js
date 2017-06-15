@@ -2,7 +2,7 @@ var client = null;
 
 QUnit.module("Stomp Subscription", {
   beforeEach: function () {
-    client = Stomp.client(TEST.url);
+    client = stompClient();
     client.debug = TEST.debug;
   },
 

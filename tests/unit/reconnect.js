@@ -8,7 +8,7 @@ QUnit.test("Reconnect", function (assert) {
   var done = assert.async();
 
   var num_try = 1;
-  var client = Stomp.client(TEST.url);
+  var client = stompClient();
   client.reconnect_delay = 300;
   client.debug = TEST.debug;
 

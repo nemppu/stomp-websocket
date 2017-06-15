@@ -5,7 +5,7 @@ QUnit.test("Send and receive a message", function (assert) {
 
   var body = Math.random();
 
-  var client = Stomp.client(TEST.url);
+  var client = stompClient();
   client.debug = TEST.debug;
   client.connect(TEST.login, TEST.password,
     function () {
@@ -23,7 +23,7 @@ QUnit.test("Send and receive a message", function (assert) {
 QUnit.test("Send and receive a message with a JSON body", function (assert) {
   var done = assert.async();
 
-  var client = Stomp.client(TEST.url);
+  var client = stompClient();
   var payload = {text: "hello", bool: true, value: Math.random()};
 
   client.connect(TEST.login, TEST.password,
