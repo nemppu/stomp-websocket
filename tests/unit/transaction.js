@@ -6,7 +6,7 @@ QUnit.test("Send a message in a transaction and abort", function (assert) {
   var body = Math.random();
   var body2 = Math.random();
 
-  var client = Stomp.client(TEST.url);
+  var client = stompClient();
 
   client.debug = TEST.debug;
   client.connect(TEST.login, TEST.password,
@@ -31,7 +31,7 @@ QUnit.test("Send a message in a transaction and commit", function (assert) {
 
   var body = Math.random();
 
-  var client = Stomp.client(TEST.url);
+  var client = stompClient();
 
   client.debug = TEST.debug;
   client.connect(TEST.login, TEST.password,
@@ -53,7 +53,7 @@ QUnit.test("Send a message outside a transaction and abort", function (assert) {
 
   var body = Math.random();
 
-  var client = Stomp.client(TEST.url);
+  var client = stompClient();
 
   client.debug = TEST.debug;
   client.connect(TEST.login, TEST.password,

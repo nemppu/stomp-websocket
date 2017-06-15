@@ -11,6 +11,7 @@
         // called back if the client can not connect to STOMP broker
       };
 
+      // This only needs to be tested with ws: URL format
       client = Stomp.client(TEST.url);
 
       checkArgs = function (args, expectedHeaders, expectedConnectCallback, expectedErrorCallback) {

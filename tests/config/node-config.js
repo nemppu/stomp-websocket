@@ -11,3 +11,21 @@ TEST = {
 };
 
 Stomp = require('../..');
+
+badStompClient = function () {
+  return Stomp.client(TEST.badUrl);
+};
+
+stompClient = function () {
+  return Stomp.client(TEST.url);
+};
+
+/*
+stompClient = function () {
+  return Stomp.overWS(TEST.url);
+};
+
+stompClient = function () {
+  return Stomp.overTCP('localhost', 61613);
+};
+*/

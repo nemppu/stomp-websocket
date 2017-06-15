@@ -18,3 +18,11 @@ $(document).ready(function () {
   $("#test_password").text(TEST.password);
 
 });
+
+badStompClient = function () {
+  return Stomp.client(TEST.badUrl);
+};
+
+stompClient = function () {
+  return Stomp.client(TEST.url);
+};

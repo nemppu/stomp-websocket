@@ -3,7 +3,7 @@ QUnit.module("Stomp Connection");
 QUnit.test("Should not connect to an invalid Stomp server", function (assert) {
   var done = assert.async();
 
-  var client = Stomp.client(TEST.badUrl);
+  var client = badStompClient();
   client.connect("foo", "bar",
     function () {
       assert.ok(false, 'Should not connect to invalid Stomp Server');
@@ -18,7 +18,7 @@ QUnit.test("Should not connect to an invalid Stomp server", function (assert) {
 QUnit.test("Connect to a valid Stomp server", function (assert) {
   var done = assert.async();
 
-  var client = Stomp.client(TEST.url);
+  var client = stompClient();
   client.connect(TEST.login, TEST.password,
     function () {
       assert.ok(true, 'Connected to valid Stomp Server');
@@ -29,7 +29,7 @@ QUnit.test("Connect to a valid Stomp server", function (assert) {
 QUnit.test("Disconnect", function (assert) {
   var done = assert.async();
 
-  var client = Stomp.client(TEST.url);
+  var client = stompClient();
   client.connect(TEST.login, TEST.password,
     function () {
       // once connected, we disconnect

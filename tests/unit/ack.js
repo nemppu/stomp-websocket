@@ -6,7 +6,7 @@ QUnit.test("Subscribe using client ack mode, send a message and ack it", functio
 
   var body = Math.random();
 
-  var client = Stomp.client(TEST.url);
+  var client = stompClient();
 
   client.debug = TEST.debug;
   client.connect(TEST.login, TEST.password, function () {
@@ -32,7 +32,7 @@ QUnit.test("Subscribe using client ack mode, send a message and nack it", functi
 
   var body = Math.random();
 
-  var client = Stomp.client(TEST.url);
+  var client = stompClient();
 
   client.debug = TEST.debug;
   client.connect(TEST.login, TEST.password, function () {
