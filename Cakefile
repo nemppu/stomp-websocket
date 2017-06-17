@@ -41,7 +41,7 @@ task 'build:min', 'Build the minified files into lib', ->
 
 task 'build:doc', 'Build docco documentation', ->
   util.log "Building doc..."
-  exec binDir + "docco -o doc/ src/*.coffee", (err, stdout, stderr) -> 
+  exec "rm -rf docs/api; codo -o ./docs/api/ src/* - README.md LICENSE.txt", (err, stdout, stderr) ->
     handleError(err) if err
 
 ################################################################################

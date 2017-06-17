@@ -105,34 +105,6 @@ For development (testing, building) the project requires node.js. This allows us
 
     $ npm install
 
-## Building and Testing
-
-[![Build Status](https://secure.travis-ci.org/jmesnil/stomp-websocket.png)](http://travis-ci.org/jmesnil/stomp-websocket)
-
-To build JavaScript from the CoffeeScript source code:
-
-    $ cake build
-
-To run tests:
-
-    $ cake test
-
-To continuously run tests on file changes:
-
-    $ cake watch
-
-
-## Browser Tests
-
-* Make sure you have a running STOMP broker which supports the WebSocket protocol
- (see the [documentation][doc])
-* Open in your web browser the project's [test page](tests/index.html)
-* Check all tests pass
-
-## Use
-
-The project contains examples for using stomp.js
-to send and receive STOMP messages from a server directly in the Web Browser or in a WebWorker.
 
 ## Authors
 
