@@ -39,9 +39,11 @@ task 'build:min', 'Build the minified files into lib', ->
   exec binDir + "uglifyjs -m --comments all -o lib/stomp.min.js lib/stomp.js", (err, stdout, stderr) ->
     handleError(err) if err
 
-task 'build:doc', 'Build docco documentation', ->
-  util.log "Building doc..."
+task 'build:doc', 'Build API documentation', ->
+  util.log "Building API doc..."
   exec "rm -rf docs/api; codo -o ./docs/api/ src/* - README.md LICENSE.txt", (err, stdout, stderr) ->
+    handleError(err) if err
+  exec "cp README.md LICENSE.txt docs/", (err, stdout, stderr) ->
     handleError(err) if err
 
 ################################################################################

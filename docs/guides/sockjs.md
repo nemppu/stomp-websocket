@@ -35,6 +35,6 @@ Apart from this initialization, the STOMP API remains the same in both cases.
 * SockJS is an emulation of WebSockets. This is not a complete implementation.
 * Heart beating is not supported.
 * SockJS internally uses one of many possible means to communicate. In some of
-  those auto reconnect may occasionally fail.
+  those, auto reconnect may occasionally fail.
   
 

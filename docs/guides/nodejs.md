@@ -15,6 +15,9 @@ issues that can hang the node environment on certain types connectivity failures
 
 ## Stomp.overTCP
 
+_This connects over STOMP protocol, unlike other methods in this library which
+connect using STOMP over WebSocket._
+
 * Add npm modules `@stomp/stompjs` and `net` to your project.
   * using `npm`
     ```bash
@@ -30,11 +33,12 @@ issues that can hang the node environment on certain types connectivity failures
     ```javascript
     var Stomp = require('@stomp/stompjs');
     ```
-* To instantiate the client use `Stomp.overWS(url)` method:
+* To instantiate the client use `Stomp.overTCP(host, port)` method:
 
     ```javascript
     var client = Stomp.overTCP('localhost', 61613);
     ```
+* Please note you need to pass the STOMP port of the broker.
 
 ## Stomp.overWS
 

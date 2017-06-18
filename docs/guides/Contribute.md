@@ -26,6 +26,7 @@ Instructions on setting up development environment:
 
 * Install `node` and `npm` - https://nodejs.org/
 * Install `yarn` - https://yarnpkg.com/en/docs/install
+* Install 'codo', it needs to be installed globally - `npm install -g codo`
 * Checkout code from GitHub - you may fork the code first into your GitHub account.
 * Use `yarn` to install dependencies:
     ```bash
