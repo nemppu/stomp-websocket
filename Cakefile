@@ -5,13 +5,15 @@ util   = require 'util'
 binDir = "./node_modules/.bin/"
 
 task 'watch', 'Watch for changes in coffee files to build and test', ->
-    util.log "Watching for changes in src and tests"
+    util.log "Watching for changes in src, tests, and docs-src"
     lastTest = 0
     watchDir 'src', ->
       invoke 'build'
       invoke 'test'
     watchDir 'tests', ->
       invoke 'test'
+    watchDir 'docs-src', ->
+      invoke 'build:doc'
 
 task 'test', 'Run the tests', ->
   util.log "Running tests..."
@@ -41,9 +43,9 @@ task 'build:min', 'Build the minified files into lib', ->
 
 task 'build:doc', 'Build API documentation', ->
   util.log "Building API doc..."
-  exec "rm -rf docs/api; codo -o ./docs/api/ src/* - README.md LICENSE.txt", (err, stdout, stderr) ->
+  exec "rm -rf docs/codo; codo -t 'STOMP.js Documentation' -n 'STOMP.js Documentation' -r docs-src/Introduction.md -o ./docs/codo/ src/* - docs-src/* LICENSE.txt", (err, stdout, stderr) ->
     handleError(err) if err
-  exec "cp README.md LICENSE.txt docs/", (err, stdout, stderr) ->
+  exec "cp README.md docs/", (err, stdout, stderr) ->
     handleError(err) if err
 
 ################################################################################
