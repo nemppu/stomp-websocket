@@ -27,6 +27,7 @@ is actively maintained. You are welcome to file issues and submit pull requests.
 The documentation is hosted as GitHub pages.
 You may head straight to the 
 [entry point](https://stomp-js.github.io/stomp-websocket/codo/extra/docs-src/Introduction.md.html).
+(or [with frames](https://stomp-js.github.io/stomp-websocket/codo/))
 
 This library comes with a detailed usage instructions. Please find it at 
 [Usage instructions](https://stomp-js.github.io/stomp-websocket/codo/extra/docs-src/Usage.md.html). 
@@ -65,3 +66,7 @@ If you want to understand the code, develop, contribute. Please visit
  * [Jeff Lindsay](http://github.com/progrium)
  * [Vanessa Williams](http://github.com/fridgebuzz)
  * [Deepak Kumar](https://github.com/kum-deepak)
+
+## License
+
+[License](https://stomp-js.github.io/stomp-websocket/codo/extra/LICENSE.txt.html) - Apache v2 License
