@@ -1,110 +1,63 @@
 # STOMP.js
 
-This library provides a STOMP client for Web browser (using Web Sockets) or node.js applications (either using raw TCP sockets or Web Sockets).
+[![Build Status](https://travis-ci.org/stomp-js/stomp-websocket.svg?branch=master)](https://travis-ci.org/stomp-js/stomp-websocket)
 
-# Project Status - Time to create a new home
+This library provides a WebSocket over STOMP client for Web browser or node.js 
+applications.
 
-This project is no longer maintained by its original author 
-(http://jmesnil.net/weblog/2015/09/04/stepping-out-from-personal-open-source-projects/). However seeing the
-number of forks, this project deserves coordinated effort to keep maintained. Invitations are being sent to
-anyone who seems to have made changes to this project. If you need are willing to contribute please make a request.
+# Introduction
 
-Meanwhile check the https://github.com/stomp-js/stomp-websocket/issues to see currently planned work.
+This library allows you to connect to a STOMP broker over WebSocket. This library
+supports full STOMP specifications and all current protocol variants. Most of
+popular messaging brokers support STOMP and STOMP over WebSockets either natively
+or using plugins.
 
-Most important probably is Auto Reconnect: https://github.com/ThoughtWire/stomp-websocket/compare/master...stomp-js:reconnect
+In general JavaScript engines at browsers are not amenable to binary protocols,
+so using STOMP, which is a text oriented protocol, becomes a reliable option.
 
-# Change history
+This library was originally developed by [Jeff Mesnil](http://jmesnil.net/).
 
-April 26, 2017
+## Current Status
 
-- Updated documentation.
-- Support for automatic reconnect.
-- Bundled in TypeScript type definitions.
+This library is feature complete and has been in use in production for many years. It
+is actively maintained. You are welcome to file issues and submit pull requests.
 
-April 1, 2016
-* Issue #1: Add support for deleting durable subscriptions
-* Issue #2: Add support for STOMP 1.2
-* Issue #3: Wait for DISCONNECT receipt before closing web socket
+## Getting started
 
-## Web Browser support
+The documentation is hosted as GitHub pages.
+You may head straight to the 
+[entry point](https://stomp-js.github.io/stomp-websocket/codo/extra/docs-src/Introduction.md.html).
 
-The library file is located in `lib/stomp.js` (a minified version is available in `lib/stomp.min.js`).
-It does not require any dependency (except WebSocket support from the browser or an alternative to WebSocket!)
+This library comes with a detailed usage instructions. Please find it at 
+[Usage instructions](https://stomp-js.github.io/stomp-websocket/codo/extra/docs-src/Usage.md.html). 
 
-Online [documentation][doc] describes the library API (including the [annotated source code][annotated]).
+If you were using older versions and wish to benefit from newer features, head to
+[Upgrading](https://stomp-js.github.io/stomp-websocket/codo/extra/docs-src/Upgrade.md.html). 
 
-### Updating older code to support auto reconnect
+If you are existing user and will like to deep dive - API Reference for important entities:
 
-If you were creating your stomp client using Stomp.client
+* [Stomp](https://stomp-js.github.io/stomp-websocket/codo/mixin/Stomp.html)
+* [Client](https://stomp-js.github.io/stomp-websocket/codo/class/Client.html)
+* [NodeJS Legacy](https://stomp-js.github.io/stomp-websocket/codo/file/src/stomp-node.coffee.html)
 
-```javascript
-    var url = "ws://localhost:61614/stomp";
-    var client = Stomp.client(url);
-    
-    // Add the following if you need automatic reconnect (delay is in milli seconds)
-    client.reconnect_delay = 5000;
-```
+## Using with Angular2/4
 
-If you were using Stomp.over like:
+https://github.com/stomp-js/ng2-stompjs is based on this library and exposes entire functionality
+offered by this library as Angular Services rxjs Observables. Both the libraries are maintained
+by similar set of contributors.
 
-```javascript
-    <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
-    <script>
-        // use SockJS implementation instead of the browser's native implementation
-        var ws = new SockJS(url);
-        var client = Stomp.over(ws);
-        [...]
-    </script>
-```
+## TypeScript definitions
 
-Change it to:
+The npm package includes [TypeScript definitions](https://github.com/stomp-js/stomp-websocket/blob/master/index.d.ts), no need no install separately.
 
-```javascript
-    <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
-    <script>
-        // use SockJS implementation instead of the browser's native implementation
-        var client = Stomp.over(function(){
-                                   return new SockJS(url);
-                                });
-    
-        // Add the following if you need automatic reconnect (delay is in milli seconds)
-        client.reconnect_delay = 5000;
-        [...]
-    </script>
-```
+## Change log
 
-Notes:
+Please visit [Change Log](https://stomp-js.github.io/stomp-websocket/codo/extra/docs-src/Change-log.md.html).
 
-* After each connect (i.e., initial connect as well each reconnection) the connectCallback
-  will be called.
-* After reconnecting, it will not automatically subscribe to queues that were subscribed.
-  So, if all subscriptions are part of the connectCallback (which it would in most of the cases),
-  you will not need to do any additional handling.
+## Contributing
 
-## node.js support
-
-Install the 'stompjs' module
-
-    $ npm install @stomp/stompjs
-
-In the node.js app, require the module with:
-
-    var Stomp = require('@stomp/stompjs');
-
-To connect to a STOMP broker over a TCP socket, use the `Stomp.overTCP(host, port)` method:
-
-    var client = Stomp.overTCP('localhost', 61613);
-
-To connect to a STOMP broker over a WebSocket, use instead the `Stomp.overWS(url)` method:
-
-    var client = Stomp.overWS('ws://localhost:61614');
-
-## Development Requirements
-
-For development (testing, building) the project requires node.js. This allows us to run tests without the browser continuously during development (see `cake watch`).
-
-    $ npm install
-
+If you want to understand the code, develop, contribute. Please visit
+[How to contribute](https://stomp-js.github.io/stomp-websocket/codo/extra/docs-src/Contribute.md.html) - 
 
 ## Authors
 
@@ -112,6 +65,3 @@ For development (testing, building) the project requires node.js. This allows us
  * [Jeff Lindsay](http://github.com/progrium)
  * [Vanessa Williams](http://github.com/fridgebuzz)
  * [Deepak Kumar](https://github.com/kum-deepak)
-
-[doc]: http://jmesnil.net/stomp-websocket/doc/
-[annotated]: http://jmesnil.net/stomp-websocket/doc/stomp.html

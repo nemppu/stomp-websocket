@@ -36,8 +36,38 @@
         </p>
       </nav>
       <div id='filecontents'>
-        <h1 id="upgrade">Upgrade</h1>
+        <h1 id="upgrade-work-in-progress-">Upgrade (Work in Progress)</h1>
 <h2 id="auto-reconnect">Auto Reconnect</h2>
+<h3 id="updating-older-code-to-support-auto-reconnect">Updating older code to support auto reconnect</h3><p>If you were creating your stomp client using Stomp.client</p><pre><code class="lang-javascript">    var url = &quot;ws://localhost:61614/stomp&quot;;
+    var client = Stomp.client(url);
+
+    // Add the following if you need automatic reconnect (delay is in milli seconds)
+    client.reconnect_delay = 5000;
+</code></pre><p>If you were using Stomp.over like:</p><pre><code class="lang-javascript">    &lt;script src=&quot;http://cdn.sockjs.org/sockjs-0.3.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;
+        // use SockJS implementation instead of the browser&#39;s native implementation
+        var ws = new SockJS(url);
+        var client = Stomp.over(ws);
+        [...]
+    &lt;/script&gt;
+</code></pre><p>Change it to:</p><pre><code class="lang-javascript">    &lt;script src=&quot;http://cdn.sockjs.org/sockjs-0.3.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;
+        // use SockJS implementation instead of the browser&#39;s native implementation
+        var client = Stomp.over(function(){
+                                   return new SockJS(url);
+                                });
+
+        // Add the following if you need automatic reconnect (delay is in milli seconds)
+        client.reconnect_delay = 5000;
+        [...]
+    &lt;/script&gt;
+</code></pre><p>Notes:</p><ul>
+<li>After each connect (i.e., initial connect as well each reconnection) the connectCallback
+will be called.</li>
+<li>After reconnecting, it will not automatically subscribe to queues that were subscribed.
+So, if all subscriptions are part of the connectCallback (which it would in most of the cases),
+you will not need to do any additional handling.</li>
+</ul>
 <h2 id="nodejs">NodeJS</h2>
 <h2 id="sockjs">SockJS</h2>
 
