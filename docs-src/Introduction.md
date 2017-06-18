@@ -15,7 +15,7 @@ documentation:
 * [Legacy Documents](http://jmesnil.net/stomp-websocket/doc/) - 
   Original documentation (external link). Outdated.
 
-* API Reference of important entities:
+* API Reference for important entities:
 
     * [Stomp](../../mixin/Stomp.html)
     * [Client](../../class/Client.html)
