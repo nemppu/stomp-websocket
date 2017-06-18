@@ -27,6 +27,7 @@ is actively maintained. You are welcome to file issues and submit pull requests.
 The documentation is hosted as GitHub pages.
 You may head straight to the 
 [entry point](https://stomp-js.github.io/stomp-websocket/codo/extra/docs-src/Introduction.md.html).
+(or [with frames](https://stomp-js.github.io/stomp-websocket/codo/))
 
 This library comes with a detailed usage instructions. Please find it at 
 [Usage instructions](https://stomp-js.github.io/stomp-websocket/codo/extra/docs-src/Usage.md.html). 
@@ -39,6 +40,13 @@ If you are existing user and will like to deep dive - API Reference for importan
 * [Stomp](https://stomp-js.github.io/stomp-websocket/codo/mixin/Stomp.html)
 * [Client](https://stomp-js.github.io/stomp-websocket/codo/class/Client.html)
 * [NodeJS Legacy](https://stomp-js.github.io/stomp-websocket/codo/file/src/stomp-node.coffee.html)
+
+## NodeJS
+
+If you are using this library in NodeJS you should definitely check 
+[Upgrading](https://stomp-js.github.io/stomp-websocket/codo/extra/docs-src/Upgrade.md.html).
+
+
 
 ## Using with Angular2/4
 
@@ -65,3 +73,7 @@ If you want to understand the code, develop, contribute. Please visit
  * [Jeff Lindsay](http://github.com/progrium)
  * [Vanessa Williams](http://github.com/fridgebuzz)
  * [Deepak Kumar](https://github.com/kum-deepak)
+
+## License
+
+[License](https://stomp-js.github.io/stomp-websocket/codo/extra/LICENSE.txt.html) - Apache v2 License

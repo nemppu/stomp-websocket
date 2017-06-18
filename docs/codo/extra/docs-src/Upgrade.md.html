@@ -37,18 +37,28 @@
       </nav>
       <div id='filecontents'>
         <h1 id="upgrade-work-in-progress-">Upgrade (Work in Progress)</h1>
-<h2 id="auto-reconnect">Auto Reconnect</h2>
-<h3 id="updating-older-code-to-support-auto-reconnect">Updating older code to support auto reconnect</h3><p>If you were creating your stomp client using Stomp.client</p><pre><code class="lang-javascript">    var url = &quot;ws://localhost:61614/stomp&quot;;
+<h2 id="auto-reconnect">Auto Reconnect</h2><p>Please note:</p><ul>
+<li>After each connect (i.e., initial connect as well each reconnection) the connectCallback
+will be called.</li>
+<li>After reconnecting, it will not automatically subscribe to queues that were subscribed.
+So, if all subscriptions are part of the connectCallback (which it would in most of the cases),
+you will not need to do any additional handling.</li>
+</ul>
+<h3 id="stomp-client-stomp-overtcp-or-stomp-overws">Stomp.client, Stomp.overTCP, or, Stomp.overWS</h3><p>Just add <code>client.reconnect_delay = 5000;</code>. The delay is in milli seconds. A value
+of <code>0</code> indicates auto reconnect is disabled.</p><pre><code class="lang-javascript">    var url = &quot;ws://localhost:61614/stomp&quot;;
     var client = Stomp.client(url);
 
     // Add the following if you need automatic reconnect (delay is in milli seconds)
     client.reconnect_delay = 5000;
-</code></pre><p>If you were using Stomp.over like:</p><pre><code class="lang-javascript">    &lt;script src=&quot;http://cdn.sockjs.org/sockjs-0.3.min.js&quot;&gt;&lt;/script&gt;
+</code></pre><p>See also:</p><ul>
+<li><a href="Usage.md.html#toc_7">Auto Reconnect</a></li>
+</ul>
+<h3 id="stomp-over">Stomp.over</h3><p>If you were using Stomp.over like:</p><pre><code class="lang-javascript">    &lt;script src=&quot;http://cdn.sockjs.org/sockjs-0.3.min.js&quot;&gt;&lt;/script&gt;
     &lt;script&gt;
         // use SockJS implementation instead of the browser&#39;s native implementation
         var ws = new SockJS(url);
         var client = Stomp.over(ws);
-        [...]
+        // ...
     &lt;/script&gt;
 </code></pre><p>Change it to:</p><pre><code class="lang-javascript">    &lt;script src=&quot;http://cdn.sockjs.org/sockjs-0.3.min.js&quot;&gt;&lt;/script&gt;
     &lt;script&gt;
@@ -59,17 +69,42 @@
 
         // Add the following if you need automatic reconnect (delay is in milli seconds)
         client.reconnect_delay = 5000;
-        [...]
+        // ...
     &lt;/script&gt;
-</code></pre><p>Notes:</p><ul>
-<li>After each connect (i.e., initial connect as well each reconnection) the connectCallback
-will be called.</li>
-<li>After reconnecting, it will not automatically subscribe to queues that were subscribed.
-So, if all subscriptions are part of the connectCallback (which it would in most of the cases),
-you will not need to do any additional handling.</li>
+</code></pre><p>See also:</p><ul>
+<li><a href="../../mixin/Stomp.html#over-">Stomp.over</a></li>
 </ul>
-<h2 id="nodejs">NodeJS</h2>
-<h2 id="sockjs">SockJS</h2>
+<h2 id="nodejs-stomp-overws-stomp-client">NodeJS - Stomp.overWS -&gt; Stomp.client</h2><p>Just change the method name:</p><pre><code class="lang-javascript">    var client = Stomp.overWS(&quot;ws://localhost:61614/stomp&quot;);
+</code></pre><p> to</p><pre><code class="lang-javascript">    var client = Stomp.client(&quot;ws://localhost:61614/stomp&quot;);
+</code></pre><p>Please note that even though both methods seem similar, these are very differently
+implemented.</p><p>See also:</p><ul>
+<li><a href="../../file/src/stomp-node.coffee.html#overWS-">Stomp.overWS</a></li>
+<li><a href="../../mixin/Stomp.html#client-">Stomp.client</a></li>
+</ul>
+<h2 id="nodejs-stomp-overtcp-stomp-client">NodeJS - Stomp.overTCP -&gt; Stomp.client</h2><p>See also:</p><ul>
+<li><a href="../../file/src/stomp-node.coffee.html#overTCP-">Stomp.overTCP</a> </li>
+<li><a href="../../mixin/Stomp.html#client-">Stomp.client</a></li>
+</ul><p>It is little more involved than it seems. The following is a summary:</p><ul>
+<li>Ensure that your STOMP broker is configured to communicate STOMP over
+WebSocket.</li>
+<li>Get the WebSocket endpoint URL - typically like <code>ws://localhost:61614/stomp</code></li>
+</ul>
+<pre><code class="lang-javascript">    var client = Stomp.overTCP(&quot;localhost&quot;, 61613);
+</code></pre><p> to</p><pre><code class="lang-javascript">    var client = Stomp.client(&quot;ws://localhost:61614/stomp&quot;);
+</code></pre><p>Do test your application.</p><h2 id="sockjs-websocket">SockJS -&gt; WebSocket</h2><p>Summary of steps:</p><ul>
+<li>Ensure that your STOMP broker is configured to communicate STOMP over
+WebSocket.</li>
+<li>SockJS and WebSocket use different handshake mechanism, so, their end points
+are likely to be different.</li>
+<li>Get the WebSocket endpoint URL - typically like <code>ws://localhost:61614/stomp</code></li>
+<li>Replace your code to create <code>Client</code> similar to:</li>
+</ul>
+<pre><code class="lang-javascript">    var client = Stomp.client(&quot;ws://localhost:61614/stomp&quot;);
+</code></pre><p>See also:</p><ul>
+<li><a href="sockjs.md.html">SockJS Limitations</a></li>
+<li><a href="../../mixin/Stomp.html#over-">Stomp.over</a></li>
+<li><a href="../../mixin/Stomp.html#client-">Stomp.client</a></li>
+</ul>
 
       </div>
     </div>

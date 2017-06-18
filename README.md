@@ -41,6 +41,11 @@ If you are existing user and will like to deep dive - API Reference for importan
 * [Client](https://stomp-js.github.io/stomp-websocket/codo/class/Client.html)
 * [NodeJS Legacy](https://stomp-js.github.io/stomp-websocket/codo/file/src/stomp-node.coffee.html)
 
+## NodeJS
+
+If you are using this library in NodeJS you should definitely check 
+[NodeJS Legacy](https://stomp-js.github.io/stomp-websocket/codo/extra/docs-src/nodejs.md.html).
+
 ## Using with Angular2/4
 
 https://github.com/stomp-js/ng2-stompjs is based on this library and exposes entire functionality

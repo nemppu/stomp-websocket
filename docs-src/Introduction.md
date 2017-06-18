@@ -9,7 +9,7 @@ documentation:
 * [How to contribute](Contribute.md.html) - if you want to understand 
  the code, develop, contribute. 
 
-* [Upgrading from older version](Upgrade.md.html) - if you were using
+* [Upgrading](Upgrade.md.html) - if you are using
  older versions and wish to benefit from newer features.
 
 * [Legacy Documents](http://jmesnil.net/stomp-websocket/doc/) - 
