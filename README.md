@@ -43,7 +43,7 @@ If you are existing user and will like to deep dive - API Reference for importan
 ## Using with Angular2/4
 
 https://github.com/stomp-js/ng2-stompjs is based on this library and exposes entire functionality
-offered by this library as Angular Services rxjs Observables. Both the libraries are maintained
+offered by this library as Angular Services and rxjs Observables. Both these libraries are maintained
 by similar set of contributors.
 
 ## TypeScript definitions

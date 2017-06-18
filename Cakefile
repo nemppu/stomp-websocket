@@ -5,6 +5,9 @@ util   = require 'util'
 binDir = "./node_modules/.bin/"
 
 task 'watch', 'Watch for changes in coffee files to build and test', ->
+    # Before entering watch, ensure that any outstanding changes are accounnted for
+    invoke 'build'
+    invoke 'test'
     util.log "Watching for changes in src, tests, and docs-src"
     lastTest = 0
     watchDir 'src', ->
